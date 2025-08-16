@@ -1,6 +1,6 @@
 #lexus-car {
-    height: 200px;
-    width: 300px;
+    height: 400px;
+    width: 615px;
 }
 
 #engine-container {
@@ -26,3 +26,30 @@
   margin-top: 20px;
 }
 
+.car-icon {
+  transform: scale(1.5); 
+  transform-origin: center; 
+}
+
+#car-interior {
+  height: 400px;
+  width: 600px;
+}
+
+#interior-container {
+  position: relative;
+}
+
+#car-viewer {
+  width: 700px;
+  height: 500px;
+  margin: auto;
+  border: 1px solid #ccc;
+}
+
+/* Flat Tire Simulator */
+.tire-simulation {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}

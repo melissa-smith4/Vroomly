@@ -4,11 +4,119 @@
     <meta charset="UTF-8">
     <title>Car Simulation</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+    #mercedes-container {
+      position: relative;
+    }
+    #engine {
+      width: 600px;
+      height: auto;
+    }
+    #hand {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      width: 100px;
+      cursor: grab;
+      user-select: none; 
+    }
+    /*
+    #hand2 {
+      position: absolute;
+      top: 300px;
+      left: 170px;
+      width: 100px;
+      cursor: grab;
+      user-select: none; 
+    }
+      */
+    #hand.dragging {
+      cursor: grabbing;
+    }
+    #fuelFilterZone {
+      position: absolute;
+      left: 170px;  /*193 here before*/
+      top: 300px;   /*328 here before*/
+      width: 60px;   /* tweak until it fits */
+      height: 60px;  /* tweak until it fits */
+      border: 3px solid transparent;  /* start invisible */
+      border-radius: 50%;             /* circle shape */
+      transition: border 0.2s ease;
+      pointer-events: none;           /* so it doesn't block dragging */
+    }
+  </style>
+
 </head>
 
 <body>
+      <h1>Drain Water From the Fuel Filter!</h1>
 
-    <script src="script.js"></script>
+  <div id="mercedes-container">
+    <img src="/assets/mercedes-diesel-engine.jpg" id="engine" draggable="false">
+    <div id="fuelFilterZone"></div>
+    <img src="/assets/hand2.png" id="hand">
+    <button id="continueBtn" disabled>Continue</button>
+  </div>
+
+<script src="script.js"></script>
+<script>
+const hand = document.getElementById("hand");
+const continueBtn = document.getElementById("continueBtn");
+const fuelFilterZone = document.getElementById("fuelFilterZone");
+
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+hand.addEventListener("mousedown", (e) => {
+  isDragging = true;
+
+  const rect = hand.getBoundingClientRect();
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+
+  hand.style.cursor = "grabbing";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    hand.style.left = `${e.clientX - offsetX}px`;
+    hand.style.top = `${e.clientY - offsetY}px`;
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+  hand.style.cursor = "grab";
+
+  // Check if hand overlaps fuel filter zone
+  const handRect = hand.getBoundingClientRect();
+  const zoneRect = fuelFilterZone.getBoundingClientRect();
+
+  if (
+    handRect.left < zoneRect.right &&
+    handRect.right > zoneRect.left &&
+    handRect.top < zoneRect.bottom &&
+    handRect.bottom > zoneRect.top
+  ) {
+
+    fuelFilterZone.style.border = "3px solid red";
+
+    // Correct placement -> unlock continue button
+    continueBtn.disabled = false;   // enable it
+    continueBtn.style.display = "block";
+    alert("Nice! You found the fuel filter.");
+  }
+  else {
+    // Hide the highlight if hand is not on zone
+    fuelFilterZone.style.border = "3px solid transparent";
+  }
+});
+
+// prevent ghost drag
+hand.addEventListener("dragstart", (e) => e.preventDefault());
+
+  </script>
 </body>
-
 </html>

@@ -3,18 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <title>Engine Interaction</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    #engine-container {
+      position: relative;
+    }
+    #engine {
+      width: 600px;
+      height: auto;
+    }
+    #hand {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      width: 100px;
+      cursor: grab;
+      user-select: none; 
+    }
+    #hand.dragging {
+      cursor: grabbing;
+    }
+  </style>
 </head>
 <body>
   <h1>Fix the Engine!</h1>
 
-<div id="engine-container">
-  <img src="/pages/dieselscenario/dieselengine.jpeg" id="engine">
-    <img src="/pages/dieselscenario/hand2.png" id="hand">
-  <button id="continueBtn" disabled>Continue</button>
-</div>
+  <div id="engine-container">
+    <img src="/assets/dieselengine.jpeg" id="engine" draggable="false">
+    <img src="/assets/hand2.png" id="hand">
+    <button id="continueBtn" disabled>Continue</button>
+  </div>
 
+  <script>
+const hand = document.getElementById("hand");
 
-  <script src="script.js"></script>
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+hand.addEventListener("mousedown", (e) => {
+  isDragging = true;
+
+  // Get the offset between mouse and top-left of hand image
+  const rect = hand.getBoundingClientRect();
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+
+  hand.style.cursor = "grabbing";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    hand.style.left = `${e.clientX - offsetX}px`;
+    hand.style.top = `${e.clientY - offsetY}px`;
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+  hand.style.cursor = "grab";
+});
+
+// prevent the ghost-image drag effect
+hand.addEventListener("dragstart", (e) => e.preventDefault());
+
+  </script>
 </body>
 </html>
+

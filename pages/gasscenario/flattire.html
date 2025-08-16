@@ -2,7 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Car Simulation</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat Tire Simulation</title>
+    <!-- <link rel="stylesheet" href="/styles.css"> -->
 </head>
+
+<style>
+    .tire-simulation {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    }
+
+    #wrench {
+        height: 100px;
+        width: 300px;
+        cursor: grab;
+        user-select: none; 
+    }
+
+    #wrench.dragging {
+      cursor: grabbing;
+    }
+
+</style>
+
 <body>
+    <div class="tire-simulation">
+        <h1>Change a Flat Tire</h1>
+        <img src="/assets/flat-tire.jpg" alt="flat tire">
+        <img src="/assets/lug-wrench.png" id="wrench" alt="lug nut wrench">
+    </div>
+</body>
+
+<script>
+    const wrench = document.getElementById("wrench");
+
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    wrench.addEventListener("mousedown", (e) => {
+        isDragging = true;
+
+        // Get the offset between mouse and top-left of hand image
+        const rect = wrench.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
+    wrench.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+        wrench.style.left = `${e.clientX - offsetX}px`;
+        wrench.style.top = `${e.clientY - offsetY}px`;
+    }
+    });
+
+    document.addEventListener("mouseup", () => {
+    isDragging = false;
+    wrench.style.cursor = "grab";
+    });
+
+    // prevent the ghost-image drag effect
+    wrench.addEventListener("dragstart", (e) => e.preventDefault());
+</script>
+
+</html>
