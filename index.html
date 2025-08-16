@@ -5,45 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     
     <div class="container"> 
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"> 
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> <svg class="bi me-2" width="40" height="32" aria-hidden="true"><use xlink:href="#bootstrap"></use></svg> <span class="fs-4">CarSim</span> </a> 
-            <ul class="nav nav-pills"> 
-                <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li> 
-                <li class="nav-item"><a href="#" class="nav-link">Features</a></li> 
-                <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li> 
-                <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li> 
-                <li class="nav-item"><a href="#" class="nav-link">About</a></li> 
-            </ul> 
+            <img src="car-front.svg" class="car-icon" height="30">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> <svg class="bi me-2" width="40" height="32" aria-hidden="true"><use xlink:href="#bootstrap"></use></svg> <span class="fs-4">CarSim</span> </a>  
         </header> 
     </div>
 
     <div class="px-4 pt-5 my-5 text-center border-bottom"> 
-        <h1 class="display-4 fw-bold text-body-emphasis">Centered screenshot</h1> 
+        <h1 class="display-4 fw-bold text-body-emphasis">Learn About Cars!</h1> 
         <div class="col-lg-6 mx-auto"> 
-            <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, 
-            featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.
+            <p class="lead mb-4"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                 exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                  sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p> 
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5"> 
-                <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Primary button</button> 
-                <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button> 
+                <button type="button" class="btn btn-primary btn-lg px-4"
+                        onclick="location.href='pages/gas.html'">
+                    Gas
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4"
+                        onclick="location.href='pages/diesel.html'">
+                    Diesel
+                </button> 
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4"
+                        onclick="location.href='pages/hybrid.html'">
+                    Hybrid
+                </button> 
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4"
+                        onclick="location.href='pages/electric.html'">
+                    Electric
+                </button> 
             </div> 
         </div> 
         <div class="overflow-hidden" style="max-height: 30vh;"> 
-            <div class="container px-5"> 
-                <img src="bootstrap-docs.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy"> 
+            <div class="pic-container"> 
+                <img src="car-image.png" id="lexus-car" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Lexus" width="700" height="500" loading="lazy"> 
             </div> 
         </div> 
-    </div>
-
-    <div class="simulation">
-        <button class="start-button">Start Simulation</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>

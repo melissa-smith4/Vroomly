@@ -1,3 +1,28 @@
-body {
-    background-color: #fafafa;
+#lexus-car {
+    height: 200px;
+    width: 300px;
 }
+
+#engine-container {
+  position: relative;
+  width: 600px;
+  margin: 20px auto;
+}
+
+#engine {
+  width: 100%;
+  display: block;
+}
+
+#hand {
+  width: 80px;
+  position: absolute;
+  top: 300px;
+  left: 50px;
+  cursor: grab;
+}
+
+#continueBtn {
+  margin-top: 20px;
+}
+
