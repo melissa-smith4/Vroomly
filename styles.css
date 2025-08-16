@@ -1,3 +1,14 @@
+.title {
+  font-size: 57px;
+  color: black;
+}
+
+.icon-square {
+  width: 3rem;
+  height: 3rem;
+  border-radius: .75rem;
+}
+
 #lexus-car {
     height: 400px;
     width: 615px;
@@ -66,6 +77,14 @@
   transition: border 0.2s ease;
   pointer-events: none;   
 }
+
 #hand.dragging {
   cursor: grabbing;
+}
+
+.pic-wrapper {
+  width: 700px;       /* same as your image */
+  height: 500px;      /* crop height */
+  overflow: hidden;   /* hides the bottom part */
+  margin: 0 auto;     /* keeps it centered */
 }

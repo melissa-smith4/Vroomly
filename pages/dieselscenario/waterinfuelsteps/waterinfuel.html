@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 <head>
     <meta charset="UTF-8">
     <title>Car Simulation</title>
@@ -10,11 +10,18 @@
     <style>
     #mercedes-container {
       position: relative;
+      display: grid;
+      justify-content: start;
+      align-items: center;
+      left: 100px;
+      top: 30px;
     }
+
     #engine {
       width: 600px;
       height: auto;
     }
+
     #hand {
       position: absolute;
       top: 50px;
@@ -23,36 +30,54 @@
       cursor: grab;
       user-select: none; 
     }
-    /*
-    #hand2 {
-      position: absolute;
-      top: 300px;
-      left: 170px;
-      width: 100px;
-      cursor: grab;
-      user-select: none; 
-    }
-      */
+
     #hand.dragging {
       cursor: grabbing;
     }
     #fuelFilterZone {
-      position: absolute;
-      left: 170px;  /*193 here before*/
+      left: 160px;  /*193 here before*/
       top: 300px;   /*328 here before*/
       width: 60px;   /* tweak until it fits */
       height: 60px;  /* tweak until it fits */
-      border: 3px solid red;  /* start invisible */
-      border-radius: 50%;             /* circle shape */
-      pointer-events: none;           /* so it doesn't block dragging */
+      border: 3px solid red;  
+      border-radius: 50%;        /* circle shape */
+      pointer-events: none;  
+      position: absolute;
+    }
+
+    #instruction-container {
+      position: absolute;
+      border: 4px solid orange;
+      margin-right: auto;
+      left: 800px;
+      bottom: 240px;
+      height: 170px;
+      width: 600px;
+      font-size: 20px;
     }
   </style>
 
 </head>
 
 <body>
-      <h1>Drain Water From the Fuel Filter!</h1>
-      <h2>Start off by selecting the filter fuel from the diesel engine</h2>
+    <div class="container"> 
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"> 
+            <img src="/assets/Vroomly.png" class="car-icon" height="100">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> <svg class="bi me-2" width="40" height="32" aria-hidden="false"><use xlink:href="#bootstrap"></use></svg> 
+                <span class="fs-2"></span> 
+            </a> 
+        </header> 
+    </div>
+  
+    <h1 style="font-weight: bold; margin-left: 480px;">Drain Water From the Fuel Filter!</h1>
+
+  <div id="instruction-container">
+    <h3 style="margin-left: 10px;">Step 1</h3>
+    <ol>
+      <li>To the left you will see an image of Mercedes OM617 car engine.</li>
+      <li>Your task is to drag the hand to the fuel filter so that we can inspect it.</li>
+    </ol>
+  </div>
 
   <div id="mercedes-container">
     <img src="/assets/mercedes-diesel-engine.jpg" id="engine" draggable="false">
@@ -73,14 +98,13 @@ const fuelFilterZone = document.getElementById("fuelFilterZone");
 let isDragging = false;
 let offsetX = 0;
 let offsetY = 0;
+let alertShown = false;
 
 hand.addEventListener("mousedown", (e) => {
   isDragging = true;
-
   const rect = hand.getBoundingClientRect();
   offsetX = e.clientX - rect.left;
   offsetY = e.clientY - rect.top;
-
   hand.style.cursor = "grabbing";
 });
 
@@ -91,7 +115,8 @@ document.addEventListener("mousemove", (e) => {
   }
 });
 
-document.addEventListener("mouseup", () => {
+document.addEventListener("mouseup", (e) => {
+   if (e.target === continueBtn) return;
   isDragging = false;
   hand.style.cursor = "grab";
 
@@ -108,12 +133,15 @@ document.addEventListener("mouseup", () => {
 
     fuelFilterZone.style.border = "3px solid red";
 
-
     // Correct placement -> unlock continue button
     continueBtn.disabled = false;   // enable it
     document.querySelector("#continueBtn").classList.remove("invisible");
     continueBtn.style.display = "block";
-    alert("Nice! You found the fuel filter.");
+    
+     if (!alertShown) {
+      alert("Nice! You found the fuel filter.");
+      alertShown = true;
+    }
   }
   else {
     // Hide the highlight if hand is not on zone

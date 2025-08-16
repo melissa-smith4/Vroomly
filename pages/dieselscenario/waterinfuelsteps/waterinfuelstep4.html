@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 <head>
     <meta charset="UTF-8">
     <title>Car Simulation</title>
     <link rel="stylesheet" href="style.css">
 
     <style>
-    #fuelfilter-container {
+    #waterdrip-container {
       position: relative;
+      display: grid;
+      justify-content: start;
+      align-items: center;
+      left: 100px;
+      top: 30px;
     }
 
     #empty-filter {
@@ -31,22 +36,52 @@
 
     #waterDripZone {
       position: absolute;
-      left: 250px;  
-      top: 300px;   
-      width: 90px;  
-      height: 90px;  
+      left: 240px;  
+      top: 185px;   
+      width: 120px;  
+      height: 120px;  
       border: 3px solid red; 
       border-radius: 50%;            
       transition: border 0.2s ease;
       pointer-events: none;          
+    }
+
+    #instruction-container {
+      position: absolute;
+      border: 5px solid orange;
+      border-radius: 20px;
+      left: 800px;
+      bottom: 250px;
+      height: 150px;
+      width: 600px;
+      font-size: 20px;
+      padding: 20px;
+      margin: ;
     }
   </style>
 
 </head>
 
 <body>
-      <h1>Drain Water From the Fuel Filter!</h1>
-      <h2>Start off by selecting the filter fuel from the diesel engine</h2>
+      
+  <div class="container"> 
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"> 
+            <img src="/assets/Vroomly.png" class="car-icon" height="100">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> <svg class="bi me-2" width="40" height="32" aria-hidden="false"><use xlink:href="#bootstrap"></use></svg> 
+                <span class="fs-2"></span> 
+            </a> 
+        </header> 
+    </div>
+
+  <h1 style="font-weight: bold; margin-left: 480px;"> Drain Water From the Fuel Filter!</h1>
+
+  <div id="instruction-container">
+    <h3 style="margin-left: 10px;">Step 3</h3>
+    <ol>
+      <li>To the left you will see a fuel filter that is clearly leaking.</li>
+      <li>Place the bucket under the filter to catch any drips and check for water inside..</li>
+    </ol>
+  </div>
 
   <div id="waterdrip-container">
     <img src="/assets/empty-fuel-filter.png" id="empty-filter" draggable="false">
@@ -66,6 +101,7 @@ const waterDripZone = document.getElementById("waterDripZone");
 let isDragging = false;
 let offsetX = 0;
 let offsetY = 0;
+let alertShown = false;
 
 filter.addEventListener("mousedown", (e) => {
   isDragging = true;
@@ -104,7 +140,11 @@ document.addEventListener("mouseup", () => {
     continueBtn.disabled = false;  
     document.querySelector("#continueBtn").classList.remove("invisible");
     continueBtn.style.display = "block";
-    alert("Excellent! You successfully changed the fuel filter.");
+    
+     if (!alertShown) {
+      alert("Nice! You found the fuel filter.");
+      alertShown = true;
+    }
   }
   else {
     waterDripZone.style.border = "3px solid transparent";

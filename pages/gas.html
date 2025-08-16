@@ -4,46 +4,51 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
     <div class="container"> 
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"> 
-            <img src="/car-front.svg" class="car-icon" height="30">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> <svg class="bi me-2" width="40" height="32" aria-hidden="true"><use xlink:href="#bootstrap"></use></svg> <span class="fs-4">CarSim</span> </a>  
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <span class="fs-2"></span> 
+                <img src="/assets/Vroomly.png" class="car-icon" height="100">
+            </a> 
         </header> 
     </div>
 
     <div class="container px-4 py-5" id="hanging-icons"> 
-        <h2 class="pb-2 border-bottom">Pick a Scenario</h2> 
+        <h1 class="pb-4 text-center fw-bold pt-4 gas-title title">Gas Car Scenarios</h1>  
         <div class="row g-4 py-5 row-cols-1 row-cols-lg-3"> 
             <div class="col d-flex align-items-start"> 
-                <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"> <svg class="bi" width="1em" height="1em" aria-hidden="true"><use xlink:href="#toggles2"></use></svg> 
+                <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"> 
+                    <img src="/assets/flat-tire.svg" height="35px">
+                </div> 
+                <div> 
+                    <h3 class="fs-2 text-body-emphasis">Flat Tire</h3> 
+                    <p>Uh oh! Tires gone flat? No worries, find out how to replace your tire in just a couple steps.</p> 
+                    <a href="/pages/gasscenario/flattirescenario/flattire.html" class="btn btn-warning">Start simulation</a> 
+                </div> 
+            </div> 
+            <div class="col d-flex align-items-start"> 
+                <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"> 
+                    <img src="/assets/brake-system-warning.svg" height="35px"> 
                 </div> 
                 <div> 
                     <h3 class="fs-2 text-body-emphasis">Brake Warning</h3> 
                     <p>If you see the break warning light glowing on your dashboard, press here to find out what to do next.</p> 
-                    <a href="/pages/gasscenario/brakewarning.html" class="btn btn-primary">Start simulation</a> 
+                    <a href="/pages/gasscenario/brakewarning.html" class="btn btn-warning">Start simulation</a> 
                 </div> 
             </div> 
             <div class="col d-flex align-items-start"> 
-                <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"> <svg class="bi" width="1em" height="1em" aria-hidden="true"><use xlink:href="#cpu-fill"></use></svg> 
-                </div> 
+                <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"> 
+                    <img src="/assets/ev-front-fill.svg" height="35px" alr="car battery image">                </div> 
                 <div> 
                     <h3 class="fs-2 text-body-emphasis">Dead Battery</h3> 
-                    <p>Will your car not start even after trying to boost it. Here are the steps on hoe to change your battery.</p> 
-                    <a href="/pages/gasscenario/deadbattery.html" class="btn btn-primary">Start simulation</a>
+                    <p>Will your car not start even after trying to boost it. Here are the steps on hoe to change your battery</p> 
+                    <a href="/pages/gasscenario/deadbattery.html" class="btn btn-warning">Start simulation</a>
                  </div> 
                 </div> 
-            <div class="col d-flex align-items-start"> 
-                <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"> <svg class="bi" width="1em" height="1em" aria-hidden="true"><use xlink:href="#tools"></use></svg> 
-                </div> 
-                <div> 
-                    <h3 class="fs-2 text-body-emphasis">Flat Tire</h3> 
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p> 
-                    <a href="/pages/gasscenario/flattire.html" class="btn btn-primary">Start simulation</a> 
-                </div> 
-            </div> 
         </div> 
     </div>
 </body>
