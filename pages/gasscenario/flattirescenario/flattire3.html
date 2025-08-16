@@ -9,25 +9,24 @@
 
 <style>
     .tire-simulation {
-        position: relative;
-        display: grid;
+        display: relative;
         justify-content: start;
         align-items: center;
-        left: 100px;
-        top: 30px;
+        position: relative;
     }
 
     #tire {
         position: relative;
-        top: 100px;
-        height: 500px;
-        width: 750px;
+        top: 50px;
+        height: 450px;
+        width: 670px;
+        left: 100px;
     }
 
     #lone-tire {
         position: absolute;
-        top: 400px;
-        left:550px;
+        top: 270px;
+        left: 100px;
         width: 650px;
         height: 500px;
         cursor: grab;
@@ -39,22 +38,29 @@
     }
     
     #lug-nut-zone {
-      left: 30px;  /*193 here before*/
-      top: 450px;   /*328 here before*/
-      width: 100px;   /* tweak until it fits */
-      height: 100px;  /* tweak until it fits */
+      left: 900px;
+      top: 540px;   
+      width: 100px;  
+      height: 100px;  
       border: 3px solid red;  
-      border-radius: 50%;        /* circle shape */
+      border-radius: 50%;        
       pointer-events: none;  
       position: absolute;
+    }
+
+     #continueBtn {
+      position: absolute;
+      bottom: -80px;
+      left: 100px; 
     }
 
     #instruction-container {
       position: absolute;
       border: 4px solid orange;
+      border-radius: 20px;
       margin-right: auto;
       left: 800px;
-      bottom: 240px;
+      bottom: 280px;
       height: 150px;
       width: 600px;
       font-size: 20px;
@@ -77,10 +83,10 @@
     <h1 style="font-weight: bold; margin-left: 530px;">Replace a Flat Tire</h1>
 
   <div id="instruction-container">
-    <h3 style="margin-left: 10px;">Step 1</h3>
+    <h3 style="margin-left: 10px;">Step 3</h3>
     <ol>
-      <li>Pu</li>
-      <li>Find the cars stand, typically stored in the trunk. Place the stand below the car and crank the level to secure the stand.</li>
+      <li>Remove the car tire</li>
+      <li>With the bolts now unscrewed, carefully remove the tire, in a motion parallel to the ground.</li>
     </ol>
   </div>
 
@@ -143,7 +149,7 @@
         continueBtn.classList.remove("invisible");
     
         if (!alertShown) {
-          alert("You've successfully placed the stand!");
+          alert("The tire is now off!");
           alertShown = true;
         }
       }
@@ -154,7 +160,7 @@
     
     lonetire.addEventListener("dragstart", (e) => e.preventDefault());
     continueBtn.addEventListener("click", () => {
-        window.location.href = "/pages/gasscenario/flattirescenario/flattire2.html";
+        window.location.href = "/pages/gasscenario/flattirescenario/flattire4.html";
     });
     
       </script>

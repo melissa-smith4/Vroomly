@@ -19,16 +19,16 @@
 
     #car {
         position: relative;
-        top: 100px;
-        height: 500px;
-        width: 750px;
-        left: 5;
+      top: 50px;
+      height: 450px;
+      width: 670px;
+      left: 100px;
     }
 
     #tire {
         position: absolute;
         top: 550px;
-        left: 550px;
+        left: 700px;
         width: 650px;
         height: 500px;
         cursor: grab;
@@ -40,8 +40,8 @@
     }
     
     #lug-nut-zone {
-      left: 260px;  /*193 here before*/
-      top: 400px;   /*328 here before*/
+      left: 315px;  /*193 here before*/
+      top: 350px;   /*328 here before*/
       width: 200px;   /* tweak until it fits */
       height: 200px;  /* tweak until it fits */
       border: 3px solid red;  
@@ -52,18 +52,21 @@
 
     #instruction-container {
       position: absolute;
-      border: 5px solid orange;
-      border-radius: 20px;
-      left: 800px;
-      bottom: 300px;
-      height: 190px;
-      width: 600px;
-      font-size: 20px;
-      margin: auto;
-      padding-left: 30px;
-      padding-top: 10px;
-      padding-bottom: 40px;
+    border: 4px solid orange;
+    margin-right: auto;
+    left: 800px;
+    bottom: 300px;
+    height: 120px;
+    width: 600px;
+    font-size: 20px;
+    top: 300px;
     }
+
+    #continueBtn {
+    position: absolute;
+    bottom: -80px;
+    left: 100px; 
+}
 
 </style>
 
@@ -159,7 +162,7 @@
     
     tire.addEventListener("dragstart", (e) => e.preventDefault());
     continueBtn.addEventListener("click", () => {
-        window.location.href = "/pages/gas.html";
+        window.location.href = "/pages/gasscenario/flattirescenario/flattire5.html";
     });
     
       </script>
