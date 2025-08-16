@@ -32,7 +32,7 @@
 }
 
 #car-interior {
-  height: 400px;
+  height: auto;
   width: 600px;
 }
 
@@ -52,4 +52,20 @@
   display: grid;
   justify-content: center;
   align-items: center;
+}
+
+/* hand break area*/
+#HandBreakZone {
+  position: absolute;
+  left: 295px;  
+  top: 200px;   
+  width: 50px;   /* tweak until it fits */
+  height: 80px;  /* tweak until it fits */
+  border: 3px solid red;  /* start invisible */
+  border-radius: 10px;             /* circle shape */
+  transition: border 0.2s ease;
+  pointer-events: none;   
+}
+#hand.dragging {
+  cursor: grabbing;
 }

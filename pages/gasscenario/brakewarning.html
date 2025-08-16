@@ -10,7 +10,7 @@
 <body>
     <h1> Pull the Hand Break! </h1>
 
-    <div class="card-my-4">
+    <div class="card my-4">
         <div class="card-body">
             <h5 class="card-title">Instructions</h5>
             <p class="card-text">Click and drag the hand to pull the handbrake. Once done, press Continue to move to the next step.</p>
@@ -20,10 +20,15 @@
     <div id="interior-container">
         <img src="/assets/gascarinterior.jpg" id="car-interior">
         <img src="/assets/hand2.png" id="hand">
+        <div id="HandBreakZone"></div>
+        <button id="continueBtn" disabled>Continue</button>
     </div>
 
     <script>
+      
 const hand = document.getElementById("hand");
+const continueBtn = document.getElementById("continueBtn");
+const HandBreakZone = document.getElementById("HandBreakZone");
 
 let isDragging = false;
 let offsetX = 0;
@@ -50,6 +55,29 @@ document.addEventListener("mousemove", (e) => {
 document.addEventListener("mouseup", () => {
   isDragging = false;
   hand.style.cursor = "grab";
+
+  // Check if hand overlaps hand break zone
+  const handRect = hand.getBoundingClientRect();
+  const zoneRect = HandBreakZone.getBoundingClientRect();
+
+  if (
+    handRect.left < zoneRect.right &&
+    handRect.right > zoneRect.left &&
+    handRect.top < zoneRect.bottom &&
+    handRect.bottom > zoneRect.top
+  ) {
+
+    HandBreakZone.style.border = "3px solid red";
+
+    // Correct placement -> unlock continue button
+    continueBtn.disabled = false;   // enable it
+    continueBtn.style.display = "block";
+    alert("Nice! You found the Hand Break Zone.");
+  }
+  else {
+    // Hide the highlight if hand is not on zone
+    HandBreakZone.style.border = "3px solid transparent";
+  }
 });
 
 // prevent the ghost-image drag effect

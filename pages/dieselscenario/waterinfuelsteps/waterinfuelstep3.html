@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+<link rel="stylesheet" href="styles.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Simulation</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+    #fuelfilter-container {
+      position: relative;
+    }
+
+    #fuel-drip {
+      height: 450px;
+      width: 600px;
+    }
+
+    #bucket {
+      height: 250pxx;
+      width: 220px;
+      position: absolute;
+      cursor: grab;
+      user-select: none; 
+    }
+
+    #bucket.dragging {
+      cursor: grabbing;
+    }
+
+    #waterDripZone {
+      position: absolute;
+      left: 250px;  
+      top: 500px;   
+      width: 80px;  
+      height: 80px;  
+      border: 3px solid red; 
+      border-radius: 50%;            
+      transition: border 0.2s ease;
+      pointer-events: none;          
+    }
+  </style>
+
+</head>
+
+<body>
+      <h1>Drain Water From the Fuel Filter!</h1>
+      <h2>Start off by selecting the filter fuel from the diesel engine</h2>
+
+  <div id="waterdrip-container">
+    <img src="/assets/dripping-filter.png" id="fuel-drip" draggable="false">
+    <img src="/assets/bucket.png" id="bucket" alt="bucket image">
+    <div id="waterDripZone"></div>
+    <button type="button" id="continueBtn" class="btn btn-warning btn-lg px-4 invisible" disabled>
+    Continue
+    </button>
+  </div>
+
+<script src="script.js"></script>
+<script>
+const bucket = document.getElementById("bucket");
+const continueBtn = document.getElementById("continueBtn");
+const waterDripZone = document.getElementById("waterDripZone");
+
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+bucket.addEventListener("mousedown", (e) => {
+  isDragging = true;
+
+  const rect = bucket.getBoundingClientRect();
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+
+  bucket.style.cursor = "grabbing";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    bucket.style.left = `${e.clientX - offsetX}px`;
+    bucket.style.top = `${e.clientY - offsetY}px`;
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+  bucket.style.cursor = "grab";
+
+  // Check if hand overlaps fuel filter zone
+  const bucketRect = bucket.getBoundingClientRect();
+  const zoneRect = waterDripZone.getBoundingClientRect();
+
+  if (
+    bucketRect.left < zoneRect.right &&
+    bucketRect.right > zoneRect.left &&
+    bucketRect.top < zoneRect.bottom &&
+    bucketRect.bottom > zoneRect.top
+  ) {
+
+    waterDripZone.style.border = "3px solid red";
+
+    continueBtn.disabled = false;  
+    document.querySelector("#continueBtn").classList.remove("invisible");
+    continueBtn.style.display = "block";
+    alert("Nice! You collected the water in the bucket!");
+  }
+  else {
+    waterDripZone.style.border = "3px solid transparent";
+  }
+});
+
+bucket.addEventListener("dragstart", (e) => e.preventDefault());
+continueBtn.addEventListener("click", () => {
+    window.location.href = "waterinfuelstep4.html";
+});
+
+  </script>
+</body>
+</html>

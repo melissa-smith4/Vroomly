@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+<link rel="stylesheet" href="styles.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Simulation</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+    #fuelfilter-container {
+      position: relative;
+    }
+
+    #fuel-filter {
+      height: 450px;
+      width: 600px;
+    }
+
+    #reg-wrench {
+      height: 300px;
+      width: 250px;
+      position: absolute;
+      cursor: grab;
+      user-select: none; 
+    }
+
+    #reg-wrench.dragging {
+      cursor: grabbing;
+    }
+
+    #fuelFilterZone {
+      position: absolute;
+      left: 160px;  
+      top: 90px;   
+      width: 65px;  
+      height: 65px;  
+      border: 3px solid red; 
+      border-radius: 50%;            
+      transition: border 0.2s ease;
+      pointer-events: none;          
+    }
+  </style>
+
+</head>
+
+<body>
+      <h1>Drain Water From the Fuel Filter!</h1>
+      <h2>Start off by selecting the filter fuel from the diesel engine</h2>
+
+  <div id="fuelfilter-container">
+    <img src="/assets/fuel-filter.png" id="fuel-filter" draggable="false">
+    <img src="/assets/reg-wrench.png" id="reg-wrench" alt="wrench image">
+    <div id="fuelFilterZone"></div>
+    <button type="button" id="continueBtn" class="btn btn-warning btn-lg px-4 invisible" disabled>
+    Continue
+    </button>
+  </div>
+
+<script src="script.js"></script>
+<script>
+const wrench = document.getElementById("reg-wrench");
+const continueBtn = document.getElementById("continueBtn");
+const fuelFilterZone = document.getElementById("fuelFilterZone");
+
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+wrench.addEventListener("mousedown", (e) => {
+  isDragging = true;
+
+  const rect = wrench.getBoundingClientRect();
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+
+  wrench.style.cursor = "grabbing";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    wrench.style.left = `${e.clientX - offsetX}px`;
+    wrench.style.top = `${e.clientY - offsetY}px`;
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+  wrench.style.cursor = "grab";
+
+  // Check if hand overlaps fuel filter zone
+  const wrenchRect = wrench.getBoundingClientRect();
+  const zoneRect = fuelFilterZone.getBoundingClientRect();
+
+  if (
+    wrenchRect.left < zoneRect.right &&
+    wrenchRect.right > zoneRect.left &&
+    wrenchRect.top < zoneRect.bottom &&
+    wrenchRect.bottom > zoneRect.top
+  ) {
+
+    fuelFilterZone.style.border = "3px solid red";
+
+    continueBtn.disabled = false;  
+    document.querySelector("#continueBtn").classList.remove("invisible");
+    continueBtn.style.display = "block";
+    alert("Nice! You loosened the screw with the wrench!");
+  }
+  else {
+    fuelFilterZone.style.border = "3px solid transparent";
+  }
+});
+
+wrench.addEventListener("dragstart", (e) => e.preventDefault());
+continueBtn.addEventListener("click", () => {
+    window.location.href = "waterinfuelstep3.html";
+});
+
+  </script>
+</body>
+</html>

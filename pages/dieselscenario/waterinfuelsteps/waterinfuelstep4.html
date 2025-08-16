@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+<link rel="stylesheet" href="styles.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Simulation</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+    #fuelfilter-container {
+      position: relative;
+    }
+
+    #empty-filter {
+      height: 400px;
+      width: 600px;
+    }
+
+    #exposed-filter {
+      height: 200px;
+      width: 200px;
+      position: absolute;
+      cursor: grab;
+      user-select: none; 
+    }
+
+    #exposed-filter.dragging {
+      cursor: grabbing;
+    }
+
+    #waterDripZone {
+      position: absolute;
+      left: 250px;  
+      top: 300px;   
+      width: 90px;  
+      height: 90px;  
+      border: 3px solid red; 
+      border-radius: 50%;            
+      transition: border 0.2s ease;
+      pointer-events: none;          
+    }
+  </style>
+
+</head>
+
+<body>
+      <h1>Drain Water From the Fuel Filter!</h1>
+      <h2>Start off by selecting the filter fuel from the diesel engine</h2>
+
+  <div id="waterdrip-container">
+    <img src="/assets/empty-fuel-filter.png" id="empty-filter" draggable="false">
+    <img src="/assets/exposed-filter.png" id="exposed-filter" alt="exposed filter image">
+    <div id="waterDripZone"></div>
+    <button type="button" id="continueBtn" class="btn btn-warning btn-lg px-4 invisible" disabled >
+    Finish
+    </button>
+  </div>
+
+<script src="script.js"></script>
+<script>
+const filter = document.getElementById("exposed-filter");
+const continueBtn = document.getElementById("continueBtn");
+const waterDripZone = document.getElementById("waterDripZone");
+
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+filter.addEventListener("mousedown", (e) => {
+  isDragging = true;
+
+  const rect = filter.getBoundingClientRect();
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+
+  filter.style.cursor = "grabbing";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    filter.style.left = `${e.clientX - offsetX}px`;
+    filter.style.top = `${e.clientY - offsetY}px`;
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+  filter.style.cursor = "grab";
+
+  // Check if hand overlaps fuel filter zone
+  const filterRect = filter.getBoundingClientRect();
+  const zoneRect = waterDripZone.getBoundingClientRect();
+
+  if (
+    filterRect.left < zoneRect.right &&
+    filterRect.right > zoneRect.left &&
+    filterRect.top < zoneRect.bottom &&
+    filterRect.bottom > zoneRect.top
+  ) {
+
+    waterDripZone.style.border = "3px solid red";
+
+    continueBtn.disabled = false;  
+    document.querySelector("#continueBtn").classList.remove("invisible");
+    continueBtn.style.display = "block";
+    alert("Excellent! You successfully changed the fuel filter.");
+  }
+  else {
+    waterDripZone.style.border = "3px solid transparent";
+  }
+});
+
+filter.addEventListener("dragstart", (e) => e.preventDefault());
+continueBtn.addEventListener("click", () => {
+    window.location.href = "/pages/diesel.html";
+});
+
+  </script>
+</body>
+</html>
