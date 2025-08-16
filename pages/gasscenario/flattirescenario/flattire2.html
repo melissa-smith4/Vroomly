@@ -1,162 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-<link rel="stylesheet" href="/styles.css">
 <head>
     <meta charset="UTF-8">
-    <title>Car Simulation</title>
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-    #fuelfilter-container {
-      position: relative;
-      display: grid;
-      justify-content: start;
-      align-items: center;
-      left: 100px;
-      top: 30px;
-    }
-
-    #fuel-filter {
-      height: 450px;
-      width: 600px;
-    }
-
-    #reg-wrench {
-      height: 300px;
-      width: 250px;
-      position: absolute;
-      top: 250px;   /* adjust as needed */
-      left: 4000px; /* adjust as needed */
-      cursor: grab;
-      user-select: none; 
-    }
-
-    #reg-wrench.dragging {
-      cursor: grabbing;
-    }
-
-    #fuelFilterZone {
-      position: absolute;
-      left: 160px;  
-      top: 90px;   
-      width: 65px;  
-      height: 65px;  
-      border: 3px solid red; 
-      border-radius: 50%;            
-      transition: border 0.2s ease;
-      pointer-events: none; 
-      position: absolute;         
-    }
-
-    #instruction-container {
-      position: absolute;
-      border: 4px solid orange;
-      margin-right: auto;
-      left: 800px;
-      bottom: 180px;
-      height: 170px;
-      width: 600px;
-      font-size: 20px;
-    }
-  </style>
-
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 
-<body>
+<style>
+  .tire-simulation {
+      display: relative;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+  }
 
-  <div class="container"> 
+  #tire {
+      position: relative;
+      top: 100px;
+      height: 450px;
+      width: 670px;
+      left: 100px;
+  }
+
+  #lug-wrench {
+      position: absolute;
+      top: 400px;
+      left: 800px;
+      width: 550px;
+      height: 400px;
+      cursor: grab;
+      user-select: none;
+  }
+
+  #lug-wrench.dragging {
+    cursor: grabbing;
+  }
+  
+  #lug-nut-zone {
+    left: 380px;  /*193 here before*/
+    top: 460px;   /*328 here before*/
+    width: 100px;   /* tweak until it fits */
+    height: 100px;  /* tweak until it fits */
+    border: 3px solid red;  
+    border-radius: 50%;        /* circle shape */
+    pointer-events: none;  
+    position: absolute;
+  }
+
+  .container {
+  }
+
+  #instruction-container {
+    position: absolute;
+    border: 4px solid orange;
+    margin-right: auto;
+    left: 800px;
+    bottom: 240px;
+    height: 100px;
+    width: 600px;
+    font-size: 20px;
+  }
+
+</style>
+
+<body>
+    <div class="container"> 
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"> 
-            <img src="/assets/Vroomly.png" class="car-icon" height="100">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> <svg class="bi me-2" width="40" height="32" aria-hidden="false"><use xlink:href="#bootstrap"></use></svg> 
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                 <span class="fs-2"></span> 
+                <img src="/assets/Vroomly.png" class="car-icon" height="100">
             </a> 
         </header> 
     </div>
 
-    <h1 style="font-weight: bold; margin-left: 480px;">Drain Water From the Fuel Filter!</h1>
+    <h1 style="font-weight: bold; margin-left: 480px;">Replace a Flat Tire</h1>
 
-  <div id="instruction-container">
-    <h3 style="margin-left: 10px;">Step 2</h3>
-    <ol>
-      <li>To the left you will see an image of the zoomed in fuel filter of a diesel engine.</li>
-      <li>Your task is to drag the wrench to the thick top bolt of the filter to unscrew it.</li>
-    </ol>
-  </div>
+    <div id="instruction-container">
+      <h3 style="margin-left: 10px;">Step 2</h3>
+      <ol>
+        <li>Use the wrench to remove the lug nuts located on the tire.</li>
+      </ol>
+    </div>
+  
+    <div id="tire-simulation">
+      <img src="/assets/jackstand-tire.jpeg" id="tire" draggable="false">
+      <div id="lug-nut-zone"></div>
+      <img src="/assets/lug-wrench.png" id="lug-wrench">
+    
+      <button type="button" id="continueBtn" class="btn btn-warning btn-lg px-4 invisible" disabled>
+      Continue
+      </button>
+  
+    </div>
 
-  <div id="fuelfilter-container">
-    <img src="/assets/fuel-filter.png" id="fuel-filter" draggable="false">
-    <img src="/assets/reg-wrench.png" id="reg-wrench" alt="wrench image">
-    <div id="fuelFilterZone"></div>
-    <button type="button" id="continueBtn" class="btn btn-warning btn-lg px-4 invisible" disabled>
-    Continue
-    </button>
-  </div>
-
-<script src="script.js"></script>
-<script>
-const wrench = document.getElementById("reg-wrench");
-const continueBtn = document.getElementById("continueBtn");
-const fuelFilterZone = document.getElementById("fuelFilterZone");
-
-let isDragging = false;
-let offsetX = 0;
-let offsetY = 0;
-let alertShown = false;
-
-wrench.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  const rect = wrench.getBoundingClientRect();
-  offsetX = e.clientX - rect.left;
-  offsetY = e.clientY - rect.top;
-  wrench.style.cursor = "grabbing";
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (isDragging) {
-    wrench.style.left = `${e.clientX - offsetX}px`;
-    wrench.style.top = `${e.clientY - offsetY}px`;
-  }
-});
-
-document.addEventListener("mouseup", (e) => {
-  if (e.target === continueBtn) return;
-  isDragging = false;
-  wrench.style.cursor = "grab";
-
-  // Check if hand overlaps fuel filter zone
-  const wrenchRect = wrench.getBoundingClientRect();
-  const zoneRect = fuelFilterZone.getBoundingClientRect();
-
-  if (
-    wrenchRect.left < zoneRect.right &&
-    wrenchRect.right > zoneRect.left &&
-    wrenchRect.top < zoneRect.bottom &&
-    wrenchRect.bottom > zoneRect.top
-  ) {
-
-    fuelFilterZone.style.border = "3px solid red";
-
-     // Correct placement -> unlock continue button
-    continueBtn.disabled = false;  
-    document.querySelector("#continueBtn").classList.remove("invisible");
-    continueBtn.style.display = "block";
-
-    if (!alertShown) {
-      alert("Nice! You found the fuel filter.");
-      alertShown = true;
-    }
-  }
-  else {
-    fuelFilterZone.style.border = "3px solid transparent";
-  }
-});
-
-wrench.addEventListener("dragstart", (e) => e.preventDefault());
-continueBtn.addEventListener("click", () => {
-    window.location.href = "waterinfuelstep3.html";
-});
-
-  </script>
+  
+      <script src="script.js"></script>
+      <script>
+      const wrench = document.getElementById("lug-wrench");
+      const continueBtn = document.getElementById("continueBtn");
+      const fuelFilterZone = document.getElementById("lug-nut-zone");
+      
+      let isDragging = false;
+      let offsetX = 0;
+      let offsetY = 0;
+      let alertShown = false;
+      
+      wrench.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        const rect = wrench.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        wrench.style.cursor = "grabbing";
+      });
+      
+      document.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+          wrench.style.left = `${e.clientX - offsetX}px`;
+          wrench.style.top = `${e.clientY - offsetY}px`;
+        }
+      });
+      
+      document.addEventListener("mouseup", (e) => {
+        if (e.target === continueBtn) return;
+        isDragging = false;
+        wrench.style.cursor = "grab";
+      
+        // Check if hand overlaps fuel filter zone
+        const wrenchRect = wrench.getBoundingClientRect();
+        const zoneRect = fuelFilterZone.getBoundingClientRect();
+      
+        if (
+          wrenchRect.left < zoneRect.right &&
+          wrenchRect.right > zoneRect.left &&
+          wrenchRect.top < zoneRect.bottom &&
+          wrenchRect.bottom > zoneRect.top
+        ) {
+      
+          fuelFilterZone.style.border = "3px solid red";
+      
+           // Correct placement -> unlock continue button
+          continueBtn.disabled = false;  
+          document.querySelector("#continueBtn").classList.remove("invisible");
+          continueBtn.style.display = "block";
+      
+          if (!alertShown) {
+            alert("Great! You removed the lug nuts.");
+            alertShown = true;
+          }
+        }
+        else {
+          fuelFilterZone.style.border = "3px solid transparent";
+        }
+      });
+      
+      wrench.addEventListener("dragstart", (e) => e.preventDefault());
+      continueBtn.addEventListener("click", () => {
+          window.location.href = "/pages/gasscenario/flattirescenario/flattire3.html";
+      });
+      
+        </script>
 </body>
 </html>

@@ -17,32 +17,33 @@
         top: 30px;
     }
 
-    #tire {
+    #car {
         position: relative;
         top: 100px;
         height: 500px;
         width: 750px;
+        left: 5;
     }
 
-    #lone-tire {
+    #tire {
         position: absolute;
-        top: 400px;
-        left:550px;
+        top: 550px;
+        left: 550px;
         width: 650px;
         height: 500px;
         cursor: grab;
         user-select: none;
     }
 
-    #lone-tire.dragging {
+    #stand.dragging {
       cursor: grabbing;
     }
     
     #lug-nut-zone {
-      left: 30px;  /*193 here before*/
-      top: 450px;   /*328 here before*/
-      width: 100px;   /* tweak until it fits */
-      height: 100px;  /* tweak until it fits */
+      left: 260px;  /*193 here before*/
+      top: 400px;   /*328 here before*/
+      width: 200px;   /* tweak until it fits */
+      height: 200px;  /* tweak until it fits */
       border: 3px solid red;  
       border-radius: 50%;        /* circle shape */
       pointer-events: none;  
@@ -51,13 +52,17 @@
 
     #instruction-container {
       position: absolute;
-      border: 4px solid orange;
-      margin-right: auto;
+      border: 5px solid orange;
+      border-radius: 20px;
       left: 800px;
-      bottom: 240px;
-      height: 150px;
+      bottom: 300px;
+      height: 190px;
       width: 600px;
       font-size: 20px;
+      margin: auto;
+      padding-left: 30px;
+      padding-top: 10px;
+      padding-bottom: 40px;
     }
 
 </style>
@@ -77,17 +82,17 @@
     <h1 style="font-weight: bold; margin-left: 530px;">Replace a Flat Tire</h1>
 
   <div id="instruction-container">
-    <h3 style="margin-left: 10px;">Step 1</h3>
+    <h3 style="margin-left: 10px;">Step 4</h3>
     <ol>
-      <li>Pu</li>
-      <li>Find the cars stand, typically stored in the trunk. Place the stand below the car and crank the level to secure the stand.</li>
+      <li>Pick up the replacement tire</li>
+      <li>Place the new tire in the wheel well, screw the nuts back on.</li>
     </ol>
   </div>
 
   <div id="tire-simulation">
-    <img src="/assets/car-no-tire.jpeg" id="tire" draggable="false">
+    <img src="/assets/car-no-tire.jpeg" id="car" draggable="false">
     <div id="lug-nut-zone"></div>
-    <img src="/assets/lone-tire.png" id="lone-tire">
+    <img src="/assets/lone-tire.png" id="tire">
     <button type="button" id="continueBtn" class="btn btn-warning btn-lg px-4 invisible" disabled>
         Continue
     </button>
@@ -96,7 +101,7 @@
 
     <script src="script.js"></script>
     <script>
-    const lonetire = document.getElementById("lone-tire");
+    const tire = document.getElementById("tire");
     const continueBtn = document.getElementById("continueBtn");
     const fuelFilterZone = document.getElementById("lug-nut-zone");
     
@@ -105,35 +110,35 @@
     let offsetY = 0;
     let alertShown = false;
     
-    lonetire.addEventListener("mousedown", (e) => {
+    tire.addEventListener("mousedown", (e) => {
       isDragging = true;
-      const rect = lonetire.getBoundingClientRect();
+      const rect = stand.getBoundingClientRect();
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
-      lonetire.style.cursor = "grabbing";
+      tire.style.cursor = "grabbing";
     });
     
     document.addEventListener("mousemove", (e) => {
       if (isDragging) {
-        lonetire.style.left = `${e.clientX - offsetX}px`;
-        lonetire.style.top = `${e.clientY - offsetY}px`;
+        tire.style.left = `${e.clientX - offsetX}px`;
+        tire.style.top = `${e.clientY - offsetY}px`;
       }
     });
     
     document.addEventListener("mouseup", (e) => {
       if (e.target === continueBtn) return;
       isDragging = false;
-      lonetire.style.cursor = "grab";
+      tire.style.cursor = "grab";
     
       // Check if hand overlaps fuel filter zone
-      const tireRect = lonetire.getBoundingClientRect();
+      const standRect = tire.getBoundingClientRect();
       const zoneRect = fuelFilterZone.getBoundingClientRect();
     
       if (
-        tireRect.left < zoneRect.right &&
-        tireRect.right > zoneRect.left &&
-        tireRect.top < zoneRect.bottom &&
-        tireRect.bottom > zoneRect.top
+        standRect.left < zoneRect.right &&
+        standRect.right > zoneRect.left &&
+        standRect.top < zoneRect.bottom &&
+        standRect.bottom > zoneRect.top
       ) {
     
         fuelFilterZone.style.border = "3px solid red";
@@ -152,9 +157,9 @@
       }
     });
     
-    lonetire.addEventListener("dragstart", (e) => e.preventDefault());
+    tire.addEventListener("dragstart", (e) => e.preventDefault());
     continueBtn.addEventListener("click", () => {
-        window.location.href = "/pages/gasscenario/flattirescenario/flattire2.html";
+        window.location.href = "/pages/gas.html";
     });
     
       </script>
